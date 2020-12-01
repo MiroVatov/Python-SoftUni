@@ -1,0 +1,165 @@
+number_of_characters = int(input())
+sum_of_characters = 0
+for i in range(1, number_of_characters + 1):
+    character = input()
+    sum_of_characters += ord(character)
+
+print(f'The sum equals: {sum_of_characters}')
+
+
+------------------------------------------
+
+
+num = int(input())
+for a in range(0, num):
+    for b in range(0, num):
+        for c in range(0, num):
+            print(f'{chr(97 + a)}{chr( 97 + b)}{chr(97 + c)}')
+            
+
+------------------------------------------------
+
+
+tank_capacity = 255
+number_of_flows = int(input())
+tank = 0
+counter = 0
+while counter < number_of_flows:
+    liters = int(input())
+
+    if liters > tank_capacity:
+        print('Insufficient capacity!')
+    else:
+        tank += liters
+        tank_capacity -= liters
+    counter += 1
+print(f'{tank}')
+
+
+--------------------------------------------
+
+
+import sys
+number_of_snowballs = int(input())
+max_num = -sys.maxsize
+max_snow = 0
+max_time = 0
+max_quality = 0
+
+
+for i in range(1, number_of_snowballs + 1):
+    snowball_value = 0
+    snowball_snow = 0
+    snowball_time = 0
+    snowball_quality = 0
+
+    snowball_snow = int(input())
+    snowball_time = int(input())
+    snowball_quality = int(input())
+
+    snowball_value = (snowball_snow / snowball_time) ** (snowball_quality)
+    if snowball_value >= max_num:
+        max_num = snowball_value
+        max_snow = snowball_snow
+        max_time = snowball_time
+        max_quality = snowball_quality
+
+print(f'{max_snow} : {max_time} = {int(max_num)} ({max_quality})')
+
+
+
+-----------------------------------------------------------
+
+
+import math
+companions = int(input())
+days = int(input())
+
+total_coins = 0
+
+
+for day in range(1, days + 1):
+    motivational_party = False
+    if day % 15 == 0:
+        companions += 5
+
+    if day % 10 == 0:
+        companions -= 2
+
+    total_coins += 50 - (companions * 2)
+
+    if day % 3 == 0:
+        total_coins -= (companions * 3)
+        motivational_party = True
+    if day % 5 == 0:
+        total_coins += (companions * 20)
+        if motivational_party:
+            total_coins -= (companions * 2)
+
+
+total_coins = math.floor(total_coins / companions)
+
+print(f'{companions} companions received {total_coins} coins each.')
+
+
+--------------------------------------------------------
+
+
+lost_fights = int(input())
+helmet_price = float(input())
+sword_price = float(input())
+shield_price = float(input())
+armor_price = float(input())
+
+broken_helmets = 0
+broken_swords = 0
+broken_shields = 0
+broken_armor = 0
+
+for fight in range(1, lost_fights + 1):
+
+    if fight % 2 == 0:
+        broken_helmets += 1
+    if fight % 3 == 0:
+        broken_swords += 1
+    if fight % 2 == 0 and fight % 3 == 0:
+        broken_shields += 1
+        if broken_shields % 2 == 0:
+            broken_armor += 1
+
+total_expenses = (helmet_price * broken_helmets) + (sword_price * broken_swords) + (shield_price * broken_shields) + (armor_price * broken_armor)
+
+print(f'Gladiator expenses: {total_expenses:.2f} aureus')
+
+
+------------------------------------------------
+
+
+number = int(input())
+is_prime = False
+delitel = 0
+for x in range(1, number + 1):
+    if number % x == 0:
+        delitel += 1
+if delitel == 2:
+    is_prime = True
+
+print(f'{is_prime}')
+
+
+----------------------------------------------
+
+
+n = int(input())
+
+for number in range(1, n + 1):
+    sum_of_digits = 0
+    for num in str(number):
+        sum_of_digits += int(num)
+    is_special = sum_of_digits == 5 or sum_of_digits == 7 or sum_of_digits == 11
+    print(f'{number} -> {is_special}')
+    
+    
+--------------------------------------------------------------------
+
+
