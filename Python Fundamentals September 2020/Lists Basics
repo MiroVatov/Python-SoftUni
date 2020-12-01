@@ -1,0 +1,542 @@
+n = int(input())
+lst = []
+filtered_lst = []
+
+for i in range(n):
+    num = int(input())
+    lst.append(num)
+
+command = input()
+
+if command == 'even':
+    for num1 in lst:
+        if num1 % 2 == 0:
+            filtered_lst.append(num1)
+    print(filtered_lst)
+
+elif command == 'odd':
+    for num1 in lst:
+        if num1 % 2 != 0:
+            filtered_lst.append(num1)
+    print(filtered_lst)
+
+elif command == 'positive':
+    for num1 in lst:
+        if num1 >= 0:
+            filtered_lst.append(num1)
+    print(filtered_lst)
+
+elif command == 'negative':
+    for num1 in lst:
+        if num1 < 0:
+            filtered_lst.append(num1)
+    print(filtered_lst)
+    
+    
+----------------------------------------
+
+
+red_cards = input()
+lst = []
+terminated = False
+team_A_players = 11
+team_B_players = 11
+red_cards = red_cards.split()
+last_player = ''
+new_list = []
+for i in red_cards:
+    lst.append(i)
+
+for i in lst:
+    if 'A' in i and i not in new_list:
+        team_A_players -= 1
+    elif 'B' in i and i not in new_list:
+        team_B_players -= 1
+    new_list.append(i)
+
+    if team_A_players < 7 or team_B_players < 7:
+        terminated = True
+        break
+print(f'Team A - {team_A_players}; Team B - {team_B_players}')
+if terminated:
+    print(f'Game was terminated')
+    
+    
+----------------------------------------------
+
+
+n = int(input())
+
+numbers = []
+
+for i in range(n):
+    num = int(input())
+    numbers.append(num)
+
+command = input()
+filtered = []
+
+for num in numbers:
+    if command == 'even' and num % 2 == 0:
+        filtered.append(num)
+    elif command == 'odd' and num % 2 != 0:
+        filtered.append(num)
+    if command == 'positive' and num >= 0:
+        filtered.append(num)
+    elif command == 'negative' and num < 0:
+        filtered.append(num)
+
+print(filtered)
+
+
+-------------------------------------------------------
+
+
+import sys
+numbers = input().split()
+
+n = int(input())
+
+min_num = sys.maxsize
+count = 0
+
+while count < n:
+    for i in numbers:
+        i = int(i)
+        if i < min_num:
+            min_num = i
+    numbers.remove(str(min_num))
+    count += 1
+    min_num = sys.maxsize
+
+
+for i in range(len(numbers)):
+    numbers[i] = int(numbers[i])
+
+print(numbers)
+
+
+---------------------------------------------
+
+
+gifts = input().split()
+
+command = input()
+
+while command != 'No Money':
+
+    gifts_lst = command.split()
+    command = gifts_lst[0]
+    gift = gifts_lst[1]
+
+    if command == 'OutOfStock':
+        if gift in gifts:
+            for i in range(len(gifts)):
+                if gift in gifts[i]:
+                    gifts[i] = 'None'
+
+    elif command == 'Required':
+
+        command = gifts_lst[0]
+        gift = gifts_lst[1]
+        index = int(gifts_lst[2])
+        if index < len(gifts) and index >= 0:
+
+            gifts[index] = gift
+
+    elif command == 'JustInCase':
+        gifts[-1] = gift
+
+    command = input()
+
+final_str = []
+string = ''
+
+for ind in gifts:
+    if ind is not 'None':
+        final_str.append(ind)
+        string += (ind + ' ')
+
+print(string, end='')
+
+
+---------------------------------------------
+
+
+red_cards_str = input().split()
+
+team_a = [1] * 11
+team_b = [1] * 11
+dismissed_players = []
+sum_players_team_a = 11
+sum_players_team_b = 11
+
+for card in red_cards_str:
+    tokens = card.split('-')
+    team = tokens[0]
+    player = int(tokens[1])
+
+    if team == 'A' and tokens not in dismissed_players:
+        team_a[player - 1] = 0
+        sum_players_team_a -= 1
+        if sum_players_team_a < 7:
+            break
+    elif team == 'B' and tokens not in dismissed_players:
+        team_b[player - 1] = 0
+        sum_players_team_b -= 1
+        if sum_players_team_b < 7:
+            break
+    dismissed_players.append(tokens)
+
+
+team_a_count = 0
+team_b_count = 0
+
+for i in range(11):
+    team_a_count += team_a[i]
+    team_b_count += team_b[i]
+
+
+#team_a_count = team_a.count(1)
+#team_b_count = team_b.count(1)
+print(f'Team A - {team_a_count}; Team B - {team_b_count}')
+
+if sum_players_team_a < 7 or sum_players_team_b < 7:
+    print(f'Game was terminated')
+    
+    
+----------------------------------------------
+
+
+text = input().split()
+
+shuffles = int(input())
+middle = int(len(text) / 2)
+final_text = []
+counter = 0
+
+for i in range(shuffles):
+    final_text = []
+    for a in range(0, middle):
+        final_text.append(text[a])
+
+        for b in range(middle, len(text)):
+            final_text.append(text[b])
+            if b >= middle:
+                break
+        middle += 1
+    middle = int(len(text) / 2)
+    text = final_text
+
+print(text)
+
+
+--------------------------------------
+
+
+
+items = input().split('|')
+
+budget = float(input())
+
+sum_new_prices = 0
+new_budget = 0
+sum_old_prices = 0
+total_profit = 0
+bought_products_list = []
+
+for i in items:
+    tokens = i.split('->')
+    cloth_type = tokens[0]
+    price = float(tokens[1])
+
+    if cloth_type == 'Clothes' and price <= 50:
+        if budget >= price:
+            budget -= price
+            sum_old_prices += price
+            price = price * 1.40
+            sum_new_prices += price
+            bought_products_list.append(price)
+
+    if cloth_type == 'Shoes' and price <= 35:
+        if budget >= price:
+            budget -= price
+            sum_old_prices += price
+            price = price * 1.40
+            sum_new_prices += price
+            bought_products_list.append(price)
+
+    if cloth_type == 'Accessories' and price <= 20.50:
+        if budget >= price:
+            budget -= price
+            sum_old_prices += price
+            price = price * 1.40
+            sum_new_prices += price
+            bought_products_list.append(price)
+
+total_profit = sum_new_prices - sum_old_prices
+new_budget = budget + sum_new_prices
+
+
+for item in bought_products_list:
+    print(f'{item:.2f}', end=' ')
+print()
+print(f'Profit: {total_profit:.2f}')
+
+if new_budget >= 150:
+    print('Hello, France!')
+else:
+    print('Time to go.')
+
+
+
+------------------------------------------
+
+
+
+items = input().split('|')
+
+budget = float(input())
+
+sum_new_prices = 0
+new_budget = 0
+sum_old_prices = 0
+total_profit = 0
+bought_products_list = []
+
+for i in items:
+    tokens = i.split('->')
+    cloth_type = tokens[0]
+    price = float(tokens[1])
+    enough_budget = False
+
+    if cloth_type == 'Clothes' and price <= 50 and budget >= price:
+        enough_budget = True
+
+    elif cloth_type == 'Shoes' and price <= 35 and budget >= price:
+        enough_budget = True
+    elif cloth_type == 'Accessories' and price <= 20.50 and budget >= price:
+        enough_budget = True
+
+    if enough_budget:
+        budget -= price
+        sum_old_prices += price
+        price = price * 1.40
+        sum_new_prices += price
+        bought_products_list.append(price)
+
+total_profit = sum_new_prices - sum_old_prices
+new_budget = budget + sum_new_prices
+
+
+for item in bought_products_list:
+    print(f'{item:.2f}', end=' ')
+print()
+print(f'Profit: {total_profit:.2f}')
+
+if new_budget >= 150:
+    print('Hello, France!')
+else:
+    print('Time to go.')
+
+
+------------------------------------------------------
+
+
+numbers = input().split(", ")
+
+for i in numbers:
+    if int(i) == 0:
+
+        numbers.append(i[::-1])
+        numbers.remove(i)
+numbers = [int(n) for n in numbers]
+
+print(numbers)
+
+
+---------------------------------------------------
+
+
+RANGE_HIGH = range(81, 126)
+RANGE_MEDIUM = range(51, 81)
+RANGE_LOW = range(1, 51)
+
+fire_cells = input().split('#')
+
+water = int(input())
+total_effort = 0
+total_fire = 0
+final_lst = []
+
+for i in fire_cells:
+    tokens = i.split(" = ")
+    fire_level = tokens[0]
+    fire_cell_value = int(tokens[1])
+    effort = 0
+
+    if fire_level == "High":
+        if fire_cell_value in RANGE_HIGH:
+            if fire_cell_value <= water:
+
+                effort = fire_cell_value * 0.25
+        else:
+            continue
+
+    if fire_level == 'Medium':
+        if fire_cell_value in RANGE_MEDIUM:
+            if fire_cell_value <= water:
+
+                effort = fire_cell_value * 0.25
+        else:
+            continue
+
+    if fire_level == 'Low':
+        if fire_cell_value in RANGE_LOW:
+            if fire_cell_value <= water:
+                effort = fire_cell_value * 0.25
+        else:
+            continue
+
+    if fire_cell_value <= water:
+        final_lst.append(fire_cell_value)
+        total_fire += fire_cell_value
+        total_effort += effort
+        water -= fire_cell_value
+
+print(f'Cells:')
+
+for ind in final_lst:
+    print(f' - {ind}')
+
+print(f'Effort: {total_effort:.2f}')
+print(f'Total Fire: {total_fire}')
+
+
+-------------------------------------------------------
+
+
+initial_energy = 100
+initial_coins = 100
+
+working_days_event = input().split("|")
+day_sucessfull = True
+
+for e in working_days_event:
+    if not day_sucessfull:
+        break
+    token = e.split("-")
+    event = token[0]
+    energy = int(token[1])
+
+    
+
+if day_sucessfull:
+
+    print(f"Day completed!")
+    print(f"Coins: {initial_coins}")
+    print(f"Energy: {initial_energy}")
+    
+    
+---------------------------------------------------------------------
+
+
+rows_num = int(input())
+
+final_rows = []
+
+for r in range(0, rows_num):
+
+    final_rows.append([int(row) for row in input().split()])
+
+attacked_squares = input().split()
+destroyed_ships = 0
+
+for i in attacked_squares:
+    row_col = i.split("-")
+    row = int(row_col[0])
+    col = int(row_col[1])
+
+    if final_rows[row][col] > 0:
+        final_rows[row][col] -= 1
+        if final_rows[row][col] == 0:
+            destroyed_ships += 1
+    else:
+        continue
+
+
+print(destroyed_ships)
+
+
+--------------------------------------------------------
+
+
+first_player = False
+second_player = False
+
+first_player_count = 0
+second_player_count = 0
+
+total_squares = 0
+
+for i in range(3):
+    move = input().split()
+
+    for a in move:
+        if int(a) == 1:
+            first_player_count += 1
+            second_player_count = 0
+            if first_player_count == 3:
+                first_player = True
+                print(f"First player won")
+                break
+
+        elif int(a) == 2:
+            second_player_count += 1
+            first_player_count = 0
+            if second_player_count == 3:
+                second_player = True
+                print(f"Second player won")
+                break
+        else:
+            pass
+        total_squares += 1
+    if first_player:
+        break
+    if second_player:
+        break
+
+if (not first_player and not second_player and total_squares == 9) or (first_player and second_player and total_squares == 9):
+    print(f"Draw!")
+    
+    
+---------------------------------------------------------------
+
+
+numbers = input().split(" ")
+jump = int(input())
+iter = jump - 1
+result = ""
+
+while True:
+    if len(numbers) == 0:
+        break
+
+    while iter >= len(numbers):
+        iter = iter - len(numbers)
+
+    result += f"{numbers[iter]},"
+    numbers.pop(iter)
+
+    iter += jump - 1
+
+result = result[:-1]
+print(f"[{result}]")
+
+
+-------------------------------------------------
+
+
+    
+
+
