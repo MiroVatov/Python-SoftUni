@@ -1,1 +1,521 @@
+class Storage:
+
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.storage = []
+
+
+    def add_product(self, product):
+        if self.capacity > len(self.storage):
+            self.storage.append(product)
+
+    def get_products(self):
+        return self.storage
+
+
+storage = Storage(4)
+storage.add_product("apple")
+storage.add_product("banana")
+storage.add_product("potato")
+storage.add_product("tomato")
+storage.add_product("bread")
+
+print(storage.get_products())
+
+
+------------------------------------
+
+
+class Catalogue:
+
+    def __init__(self, name):
+        self.name = name
+        self.products = []
+
+    def add_product(self, product):
+        self.products.append(product)
+
+    def get_by_letter(self, first_letter):
+        return [p for p in self.products if p[0] == first_letter]
+
+    def __repr__(self):
+
+        res = f"Items in the {self.name} catalogue:\n"
+        res1 = '\n'.join(sorted(self.products))
+
+        return res + str(res1)
+
+catalogue = Catalogue("Furniture")
+catalogue.add_product("Sofa")
+catalogue.add_product("Mirror")
+catalogue.add_product("Desk")
+catalogue.add_product("Chair")
+catalogue.add_product("Carpet")
+
+print(catalogue.get_by_letter("C"))
+print(catalogue)
+
+
+----------------------------------
+
+
+class Town:
+
+    def __init__(self, name):
+        self.name = name
+
+    def set_latitude(self, latitude):
+        self.latitude = latitude
+
+    def set_longitude(self, longitude):
+        self.longitude = longitude
+
+    def __repr__(self):
+        return f"Town: {self.name} | Latitude: {self.latitude} | Longitude: {self.longitude}"
+
+town = Town("Sofia")
+town.set_latitude("42° 41\' 51.04\" N")
+town.set_longitude("23° 19\' 26.94\" E")
+print(town)
+
+
+--------------------------------------
+
+
+class Class:
+
+    __students_count = 22
+
+    def __init__(self, name):
+        self.name = name
+        self.students = []
+        self.grades = []
+
+    def add_student(self, name, grade):
+
+        if len(self.students) < Class.__students_count:
+            self.students.append(name)
+            self.grades.append(grade)
+
+        Class.__students_count -= 1
+
+    def get_average_grade(self):
+        return round(sum(self.grades) / len(self.students), 2)
+
+
+    def __repr__(self):
+        return f"The students in {self.name}: {', '.join(self.students)}. Average grade: {self.get_average_grade()}"
+
+a_class = Class("11B")
+a_class.add_student("Peter", 4.80)
+a_class.add_student("George", 6.00)
+a_class.add_student("Amy", 3.50)
+print(a_class)
+
+
+---------------------------------------------
+
+
+class Article:
+
+    def __init__(self, title, content, author):
+        self.title = title
+        self.content = content
+        self.author = author
+
+    def edit(self, new_content):
+        self.new_content = new_content
+        self.content = self.new_content
+
+    def change_author(self, new_author):
+        self.new_author = new_author
+        self.author = self.new_author
+
+    def rename(self, new_title):
+        self.new_title = new_title
+        self.title = self.new_title
+
+    def __repr__(self):
+        return f"{self.title} - {self.content}: {self.author}"
+
+article = Article("some title", "some content", "some author")
+article.edit("new content")
+article.rename("new title")
+article.change_author("new author")
+print(article)
+
+
+--------------------------------------------
+
+class Vehicle:
+
+    def __init__(self, type, model, price):
+        self.type = type
+        self.model = model
+        self.price = price
+        self.owner = None
+
+    def buy(self, money, owner):
+
+        if self.owner is None:
+            if money >= self.price:
+                self.owner = owner
+                change = money - self.price
+                return f"Successfully bought a {self.type}. Change: {change:.2f}"
+
+            elif money < self.price:
+                owner = None
+                return "Sorry, not enough money"
+
+        elif owner is not None:
+            return "Car already sold"
+
+    def sell(self):
+        if self.owner is not None:
+            self.owner = None
+
+        else:
+            return "Vehicle has no owner"
+
+    def __repr__(self):
+        if self.owner is not None:
+            return f"{self.model} {self.type} is owned by: {self.owner}"
+        else:
+            return f"{self.model} {self.type} is on sale: {self.price}"
+
+
+vehicle_type = "car"
+model = "BMW"
+price = 30000
+vehicle = Vehicle(vehicle_type, model, price)
+print(vehicle.buy(15000, "Peter"))
+print(vehicle.buy(35000, "George"))
+print(vehicle)
+vehicle.sell()
+print(vehicle)
+
+
+--------------------------------
+
+class Movie:
+    __watched_movies = 0
+
+    def __init__(self, name, director):
+        self.name = name
+        self.director = director
+        self.watched = False
+
+    def change_name(self, n):
+
+        self.name = n
+
+    def change_director(self, d):
+
+        self.director = d
+
+    def watch(self):
+        if not self.watched:
+            self.watched = True
+            Movie.__watched_movies += 1
+
+    def __repr__(self):
+        return f"Movie name: {self.name}; Movie director: {self.director}. Total watched movies: {Movie.__watched_movies}"
+
+
+first_movie = Movie("Inception", "Christopher Nolan")
+second_movie = Movie("The Matrix", "The Wachowskis")
+third_movie = Movie("The Predator", "Shane Black")
+first_movie.change_director("Me")
+third_movie.change_name("My Movie")
+first_movie.watch()
+third_movie.watch()
+first_movie.watch()
+print(first_movie)
+print(second_movie)
+print(third_movie)
+
+
+---------------------------------------
+
+class Comment:
+    def __init__(self, username, content, likes = 0):
+        self.username = username
+        self.content = content
+        self.likes = likes
+
+comment = Comment('user1', "I like this book")
+
+print(comment.username)
+print(comment.content)
+print(comment.likes)
+
+---------------------------------------
+
+class Party:
+    def __init__(self):
+        self.people = []
+
+party = Party()
+
+line = input()
+
+while line != 'End':
+    party.people.append(line)
+    line = input()
+
+print(f"Going: {', '.join(party.people)}")
+print(f"Total: {len(party.people)}")
+
+
+----------------------------------------
+
+class Email:
+
+    def __init__(self, sender, receiver, content):
+        self.sender = sender
+        self.receiver = receiver
+        self.content = content
+        self.is_sent = False
+
+    def send(self):
+        self.is_sent = True
+
+    def get_info(self):
+        return f"{self.sender} says to {self.receiver}: {self.content}. Sent: {self.is_sent}"
+
+
+emails = []
+
+command = input()
+
+while command != "Stop":
+    tokens = command.split(" ")
+    sender = tokens[0]
+    receiver = tokens[1]
+    content = tokens[2]
+    email = Email(sender, receiver, content)
+    emails.append(email)
+    command = input()
+
+send_emails = list(map(lambda x: int(x), input().split(", ")))
+
+for x in send_emails:
+    emails[x].send()
+
+for email in emails:
+    print(email.get_info())
+
+
+-------------------------------------
+
+class Zoo:
+    __animals = 0
+
+    def __init__(self, name):
+        self.name = name
+        self.mammals = []
+        self.fishes = []
+        self.birds = []
+
+    def add_animal(self, species, name):
+        if species == 'mammal':
+            self.mammals.append(name)
+        elif species == 'bird':
+            self.birds.append(name)
+        elif species == 'fish':
+            self.fishes.append(name)
+        Zoo.__animals += 1
+
+    def get_info(self, species):
+        animals_to_display = []
+
+        if species == 'mammal':
+            animals_to_display = self.mammals
+        elif species == 'bird':
+            animals_to_display = self.birds
+        elif species == 'fish':
+            animals_to_display = self.fishes
+        species = species.capitalize() + "es" if species == "fish" else species.capitalize() + "s"
+
+        return f"{species} in {self.name}: {', '.join(animals_to_display)}\n" \
+                f"Total animals: {Zoo.__animals}"
+
+zoo_name = input()
+rows_num = int(input())
+
+zoo = Zoo(zoo_name)
+
+for i in range(rows_num):
+    species, animal_name = input().split()
+    zoo.add_animal(species, animal_name)
+
+required_species = input()
+
+print(zoo.get_info(required_species))
+
+--------------------------------------------------
+
+class Zoo:
+    __animals = 0
+
+    def __init__(self, name):
+        self.name = name
+        self.mammals = []
+        self.fish = []
+        self.birds = []
+
+    def add_animal(self, species, name):
+        if species == "mammal":
+            self.mammals.append(name)
+        elif species == "fish":
+            self.fish.append(name)
+        elif species == "birds":
+            self.birds.append(name)
+        self.__animals += 1
+
+    def get_info(self, species):
+        global species_names
+        zoo_name = self.name
+
+        if species == "mammal":
+            species_names = self.mammals
+        elif species == "fish":
+            species_names = self.fish
+        elif species == "bird":
+            species.names = self.birds
+
+        names = ', '.join(species_names)
+        return f"{species} in {zoo_name}: {names}"
+
+    def get_total(self):
+        return f"Total animals: {self.__animals}"
+
+zoo_name = input()
+zoo = Zoo(zoo_name)
+
+n = int(input())
+
+for i in range(n):
+    species, name = input().split(" ")
+    zoo.add_animal(species, name)
+
+species = input()
+
+print(zoo.get_info(species))
+print(zoo.get_total())
+
+-----------------------------------------
+
+class Circle:
+    __pi = 3.14
+
+    def __init__(self, diameter):
+        self.radius = diameter / 2
+        self.diameter = diameter
+
+    def calculate_circumference(self):
+        return self.diameter * self.__pi
+
+    def calculate_area(self):
+        radius = self.diameter / 2
+        return  radius * radius * self.__pi
+
+    def calculate_area_of_sector(self, angle):
+        return self.calculate_area() * angle / 360
+
+
+circle = Circle(10)
+angle = 5
+
+print(f"{circle.calculate_circumference():.2f}")
+print(f"{circle.calculate_area():.2f}")
+print(f"{circle.calculate_area_of_sector(angle):.2f}")
+
+------------------------------------
+
+class Circle:
+    __pi = 3.14
+
+    def __init__(self, diameter):
+        self.radius = diameter / 2
+
+    def calculate_circumference(self):
+        return Circle.__pi * self.radius * 2
+
+    def calculate_area(self):
+        return Circle.__pi * self.radius * self.radius
+
+    def calculate_area_of_sector(self, angle):
+        return (angle / 360) * Circle.__pi * self.radius * self.radius
+
+
+circle = Circle(10)
+angle = 5
+
+print(f"{circle.calculate_circumference():.2f}")
+print(f"{circle.calculate_area():.2f}")
+print(f"{circle.calculate_area_of_sector(angle):.2f}")
+
+
+------------------------------------
+
+class Inventory:
+
+
+    def __init__(self, capacity):
+        self.items = []
+        self.__capacity = capacity
+
+    def add_item(self, item):
+
+        if len(self.items) >= self.__capacity:
+            return "not enough room in the inventory"
+
+        self.items.append(item)
+
+    def get_capacity(self):
+        return self.__capacity
+
+    def __repr__(self):
+        left_capacity = self.__capacity - int(len(self.items))
+        return f"Items: {', '.join(self.items)}.\nCapacity left: {left_capacity}"
+
+inventory = Inventory(2)
+inventory.add_item("potion")
+inventory.add_item("sword")
+print(inventory.add_item("bottle"))
+print(inventory.get_capacity())
+print(inventory)
+
+
+
+class Weapon:
+
+    def __init__(self, bullets):
+        self.bullets = bullets
+
+    def shoot(self):
+
+        if self.bullets > 0:
+            self.bullets -= 1
+            return "shooting..."
+        else:
+            return "no bullets left"
+
+    def __repr__(self):
+        return f"Remaining bullets: {self.bullets}"
+
+
+weapon = Weapon(5)
+weapon.shoot()
+weapon.shoot()
+weapon.shoot()
+weapon.shoot()
+weapon.shoot()
+weapon.shoot()
+print(weapon)
+
+
+------------------------------------------
+
 
