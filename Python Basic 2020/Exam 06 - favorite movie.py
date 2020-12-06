@@ -1,0 +1,3 @@
+movie = input()
+
+print(movies)
