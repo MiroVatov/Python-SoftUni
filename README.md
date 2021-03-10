@@ -1,3 +1,3 @@
 # Python-SoftUni
-Including courses - Python Basic, Python Fundamentals, exercises, exam preparations and actual exams.
+Including courses - Python Basic, Python Fundamentals, Advanced, OOP exercises, exam preparations and actual exams.
 
