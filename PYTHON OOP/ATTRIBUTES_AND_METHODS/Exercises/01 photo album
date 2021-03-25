@@ -1,0 +1,45 @@
+class PhotoAlbum:
+
+    def __init__(self, pages: int):
+        self.pages = pages
+        self.photos = [[] * self.pages for _ in range(self.pages)]
+        self.page = 0
+        self.slot = 0
+        self.maximum_slots = self.pages * 4
+        self.total_slots = 0
+
+    @classmethod
+    def from_photos_count(cls, photos_count: int):
+        photos_count = photos_count
+        return cls(photos_count // 4)
+
+    def add_photo(self, label: str):
+
+        if self.total_slots == self.maximum_slots:
+            return "No more free spots"
+
+        if self.slot == 4:
+            self.slot = 0
+            self.page += 1
+
+        # TODO check for the index error when adding labels into the pages/slots
+
+        self.photos[self.page].append(label)
+        self.slot += 1
+        self.total_slots += 1
+        return f"{label} photo added successfully on page {self.page + 1} slot {self.slot}"
+
+    def display(self):
+        data = ''
+        for page in self.photos:
+            if page:
+                data += '-----------' + '\n'
+                for pic in page:
+                    data += "[] "
+                data = data.rstrip()
+                data += '\n'
+            else:
+                data += '-----------' + '\n' + '\n'
+
+        data += '-----------' + '\n'
+        return data
